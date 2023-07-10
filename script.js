@@ -36,6 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
     var cards = document.querySelectorAll(".card");
     var infoIfSelected = document.querySelector(".info-if-selected");
     var selectedProvidersList = document.querySelector(".selected-data-storage-providers-list");
+    var step2SelectAllButton = document.querySelector(".step2-select-all");
+    var step2ClearAnswersButton = document.querySelector(".step2-clear-selections");
+    var clearAnswersButton = document.querySelector(".clear-answers");
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
     function toggleCardSelection() {
         this.classList.toggle("selected");
@@ -61,17 +65,29 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    cards.forEach(function (card) {
-        card.addEventListener("click", toggleCardSelection);
+    step2SelectAllButton.addEventListener("click", function () {
+        cards.forEach(function (card) {
+            card.classList.add("selected");
+        });
+        updateSelectedProvidersList();
+        checkStep3Visibility();
     });
-});
-document.addEventListener("DOMContentLoaded", function () {
-    var clearAnswersButton = document.querySelector(".clear-answers");
-    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    step2ClearAnswersButton.addEventListener("click", function () {
+        cards.forEach(function (card) {
+            card.classList.remove("selected");
+        });
+        updateSelectedProvidersList();
+        checkStep3Visibility();
+    });
 
     clearAnswersButton.addEventListener("click", function () {
         checkboxes.forEach(function (checkbox) {
             checkbox.checked = false;
         });
+    });
+
+    cards.forEach(function (card) {
+        card.addEventListener("click", toggleCardSelection);
     });
 });

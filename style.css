@@ -39,8 +39,10 @@
 }
 
 .clear-answers,
-.select-all,
-.clear-selections {
+.step2-select-all,
+.step3-select-all,
+.step2-clear-selections,
+.step3-clear-selections {
     background-color: #1e90ff;
     /* Dark blue color */
     color: white;
@@ -54,8 +56,10 @@
 }
 
 .clear-answers:hover,
-.select-all:hover,
-.clear-selections:hover {
+.step2-select-all:hover,
+.step3-select-all:hover,
+.step2-clear-selections:hover,
+.step3-clear-selections:hover {
     background-color: #003399;
     /* Darker blue color on hover */
     cursor: pointer;
