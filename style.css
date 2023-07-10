@@ -1,0 +1,66 @@
+.questions-and-data {
+    display: flex;
+    counter-reset: question-counter;
+}
+
+.questions {
+    flex: 1;
+    border-right: 1px solid #ccc;
+    /* Add vertical scroll bar */
+    overflow-y: scroll;
+    /* Limit the height to fit 3 questions */
+    max-height: calc(100vh - 180px);
+}
+
+.questions>div {
+    margin-bottom: 20px;
+}
+
+.data {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.question1:before,
+.question2:before,
+.question3:before,
+.question4:before,
+.question5:before {
+    counter-increment: question-counter;
+    content: counter(question-counter) ". ";
+}
+
+.question1 h4,
+.question2 h4,
+.question3 h4,
+.question4 h4,
+.question5 h4 {
+    display: inline;
+}
+
+.clear-answers,
+.select-all,
+.clear-selections {
+    background-color: #1e90ff;
+    /* Dark blue color */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    /* Round shape */
+    padding: 10px 20px;
+    /* Adjust padding to make the buttons bigger */
+    font-size: 16px;
+    /* Adjust font size as desired */
+}
+
+.clear-answers:hover,
+.select-all:hover,
+.clear-selections:hover {
+    background-color: #003399;
+    /* Darker blue color on hover */
+    cursor: pointer;
+}
+
+.info-if-selected {
+    display: none;
+}
