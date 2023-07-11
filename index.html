@@ -18,42 +18,42 @@
             <div class="question1">
                 <h4>What risk level is your data?</h4>
                 <div class="answer1">
-                    <input type="checkbox" name="answer1" value="1">Low<br>
-                    <input type="checkbox" name="answer1" value="2">Medium<br>
-                    <input type="checkbox" name="answer1" value="3">High<br>
+                    <input type="checkbox" name="answer1" value="1" class="risk low" onclick="onlyOne(this)">Low<br>
+                    <input type="checkbox" name="answer1" value="2" class="risk medium" onclick="onlyOne(this)">Medium<br>
+                    <input type="checkbox" name="answer1" value="3" class="risk high" onclick="onlyOne(this)">High<br>
                 </div>
             </div>
             <div class="question2">
                 <h4>What type of data storage are you looking for?</h4>
                 <div class="answer2">
-                    <input type="checkbox" name="answer2" value="1">Active Research<br>
-                    <input type="checkbox" name="answer2" value="2">Backup<br>
-                    <input type="checkbox" name="answer2" value="3">Archival & Open data sharing<br>
+                    <input type="checkbox" name="answer2" value="1" class="type activeresearch">Active Research<br>
+                    <input type="checkbox" name="answer2" value="2" class="type backup">Backup<br>
+                    <input type="checkbox" name="answer2" value="3" class="type archival&opendatasharing">Archival & Open data sharing<br>
                 </div>
             </div>
             <div class="question3">
                 <h4>Are you collaborating with other researchers?</h4>
                 <div class="answer3">
-                    <input type="checkbox" name="answer3" value="1">Other UBC Researchers<br>
-                    <input type="checkbox" name="answer3" value="2">Specific researchers external to McMaster<br>
-                    <input type="checkbox" name="answer3" value="3">Non-specific individuals with a shared link<br>
-                    <input type="checkbox" name="answer3" value="4">Public<br>
+                    <input type="checkbox" name="answer3" value="1" class="collab otherUBCresearchers">Other UBC Researchers<br>
+                    <input type="checkbox" name="answer3" value="2" class="collab specific">Specific researchers external to McMaster<br>
+                    <input type="checkbox" name="answer3" value="3" class="collab nonspecific">Non-specific individuals with a shared link<br>
+                    <input type="checkbox" name="answer3" value="4" class="collab public">Public<br>
                 </div>
             </div>
             <div class="question4">
                 <h4>Where will you be accessing your data from?</h4>
                 <div class="answer4">
-                    <input type="checkbox" name="answer4" value="1">Laptop/Desktop Computer<br>
-                    <input type="checkbox" name="answer4" value="2">Mobile Device<br>
+                    <input type="checkbox" name="answer4" value="1" class="access laptop">Laptop/Desktop Computer<br>
+                    <input type="checkbox" name="answer4" value="2" class="access mobile">Mobile Device<br>
                 </div>
             </div>
             <div class="question5">
                 <h4>How much data do you need storage for?</h4>
                 <div class="answer5">
-                    <input type="checkbox" name="answer5" value="1">Under 100 GB<br>
-                    <input type="checkbox" name="answer5" value="2">100 GB - 1 TB<br>
-                    <input type="checkbox" name="answer5" value="3">1 TB - 5 TB<br>
-                    <input type="checkbox" name="answer5" value="4">Over 5 TB<br>
+                    <input type="checkbox" name="answer5" value="1" class="data-storage under100">Under 100 GB<br>
+                    <input type="checkbox" name="answer5" value="2" class="data-storage 100to1">100 GB - 1 TB<br>
+                    <input type="checkbox" name="answer5" value="3" class="data-storage 1to5">1 TB - 5 TB<br>
+                    <input type="checkbox" name="answer5" value="4" class="data-storage over5">Over 5 TB<br>
                 </div>
             </div>
         </div>
