@@ -127,22 +127,21 @@ document.addEventListener("DOMContentLoaded", function () {
     function filterDict(dict) {
         var filterList = [];
         for (var key in dict) {
-            console.log(dict[key]);
             if (!checkAllFalse(dict[key])) {
                 filterList.push(key);
             }
         }
-        console.log(filterList);
         return filterList;
     }
 
     function compareDictsBasedOnFilter(dict1, dict2, filterList, card) {
-        console.log(filterList);
+        var cardRemoved = false;
         for (var key in filterList) {
-            if (arrayEquals(dict1[filterList[key]], dict2[filterList[key]])) {
+            if (arrayEquals(dict1[filterList[key]], dict2[filterList[key]]) && !cardRemoved) {
                 card.classList.add("filtered");
             } else {
                 card.classList.remove("filtered");
+                cardRemoved = true;
             }
         }
         if (filterList.length == 0) {
