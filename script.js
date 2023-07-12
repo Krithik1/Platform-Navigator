@@ -86,9 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var dataStorageCheckboxes = document.querySelectorAll('.dataStorage');
 
     function checkIfAllCheckboxesAreUnchecked() {
-        var allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
         var allUnchecked = true;
-        allCheckboxes.forEach(function (checkbox) {
+        checkboxes.forEach(function (checkbox) {
             if (checkbox.checked) {
                 allUnchecked = false;
             }
@@ -315,7 +314,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     step2SelectAllButton.addEventListener("click", function () {
         cards.forEach(function (card) {
-            card.classList.add("selected");
+            if (card.classList.contains("filtered") || checkIfAllCheckboxesAreUnchecked()) {
+                card.classList.add("selected");
+            }
         });
         updateSelectedProvidersList();
         checkStep3Visibility();
