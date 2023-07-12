@@ -141,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 card.classList.add("filtered");
             } else {
                 card.classList.remove("filtered");
+                card.classList.remove("selected");
                 cardRemoved = true;
             }
         }
