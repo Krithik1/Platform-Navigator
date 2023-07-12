@@ -89,6 +89,10 @@
     color: white;
 }
 
+.card.filtered {
+    background-color: #ccc;
+}
+
 
 @media (max-width: 768px) {
     .cards-container {

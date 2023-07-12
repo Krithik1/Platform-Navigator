@@ -29,7 +29,6 @@ var softwareData = [
     // Add more data objects as needed
 ];
 
-
 // Generate card-like structures dynamically using the data object
 var cardsContainer = document.querySelector('.cards-container');
 softwareData.forEach(function (software) {
@@ -52,15 +51,12 @@ softwareData.forEach(function (software) {
     cardsContainer.appendChild(card);
 });
 
-// TODO: Ask about functionality of the checkboxes and highlighting
-
 function onlyOneRisk(checkbox) {
     var checkboxes = document.querySelectorAll('.risk')
     checkboxes.forEach((item) => {
         // Update the checked state of the other checkboxes and change the selected class of the cards based on the checked state
         if (item !== checkbox) {
             item.checked = false;
-
         }
     })
 }
@@ -71,7 +67,6 @@ function onlyOneDataStorage(checkbox) {
         // Update the checked state of the other checkboxes and change the selected class of the cards based on the checked state
         if (item !== checkbox) {
             item.checked = false;
-
         }
     })
 }
@@ -88,10 +83,23 @@ document.addEventListener("DOMContentLoaded", function () {
     var typeCheckboxes = document.querySelectorAll('.type');
     var collabCheckboxes = document.querySelectorAll('.collab');
     var accessCheckboxes = document.querySelectorAll('.access');
-    var dataStorageCheckboxes = document.querySelectorAll('.data-storage');
+    var dataStorageCheckboxes = document.querySelectorAll('.dataStorage');
+
+    function checkIfAllCheckboxesAreUnchecked() {
+        var allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+        var allUnchecked = true;
+        allCheckboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                allUnchecked = false;
+            }
+        });
+        return allUnchecked;
+    }
 
     function toggleCardSelection() {
-        this.classList.toggle("selected");
+        if (this.classList.contains("filtered") || checkIfAllCheckboxesAreUnchecked()) {
+            this.classList.toggle("selected");
+        }
         checkStep3Visibility();
         updateSelectedProvidersList();
     }
@@ -113,7 +121,37 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function arraysEqual(arr1, arr2) {
+    function checkAllFalse(list) {
+        return list.every(i => i === false);
+    }
+
+    function filterDict(dict) {
+        var filterList = [];
+        for (var key in dict) {
+            console.log(dict[key]);
+            if (!checkAllFalse(dict[key])) {
+                filterList.push(key);
+            }
+        }
+        console.log(filterList);
+        return filterList;
+    }
+
+    function compareDictsBasedOnFilter(dict1, dict2, filterList, card) {
+        console.log(filterList);
+        for (var key in filterList) {
+            if (arrayEquals(dict1[filterList[key]], dict2[filterList[key]])) {
+                card.classList.add("filtered");
+            } else {
+                card.classList.remove("filtered");
+            }
+        }
+        if (filterList.length == 0) {
+            card.classList.remove("filtered");
+        }
+    }
+
+    function arrayEquals(arr1, arr2) {
         // Check if the arrays have the same length
         if (arr1.length !== arr2.length) {
             return false;
@@ -123,107 +161,158 @@ document.addEventListener("DOMContentLoaded", function () {
         return arr1.every((value, index) => value === arr2[index]);
     }
 
-    // TODO: Create allFalse parameters to check if all the chekboxes for that question are false, if yes then ignore that question
-    function createCardCheckBoxList(card) {
-        var cardCheckBoxList = [];
+    function createCheckBoxBoolDict() {
+        var checkBoxBoolDict = {
+            risk: [],
+            type: [],
+            collab: [],
+            access: [],
+            dataStorage: []
+        };
+        riskCheckboxes.forEach(function (checkbox) {
+            checkBoxBoolDict.risk.push(checkbox.checked);
+        });
+        typeCheckboxes.forEach(function (checkbox) {
+            checkBoxBoolDict.type.push(checkbox.checked);
+        });
+        collabCheckboxes.forEach(function (checkbox) {
+            checkBoxBoolDict.collab.push(checkbox.checked);
+        });
+        accessCheckboxes.forEach(function (checkbox) {
+            checkBoxBoolDict.access.push(checkbox.checked);
+        });
+        dataStorageCheckboxes.forEach(function (checkbox) {
+            checkBoxBoolDict.dataStorage.push(checkbox.checked);
+        });
+        return checkBoxBoolDict;
+    }
+
+    function createCardCheckBoxDict(card) {
+        var riskCheckBoxList = [];
+        var typeCheckBoxList = [];
+        var collabCheckBoxList = [];
+        var accessCheckBoxList = [];
+        var dataStorageCheckBoxList = [];
         var cardRisk = card.classList[1];
         var cardType = card.classList[2];
         var cardCollab = card.classList[3];
         var cardAccess = card.classList[4];
         var cardDataStorage = card.classList[5];
+        var cardCheckBoxDict = {
+            risk: [],
+            type: [],
+            collab: [],
+            access: [],
+            dataStorage: []
+        };
         if (cardRisk === "high") {
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(true);
+            riskCheckBoxList.push(false);
+            riskCheckBoxList.push(false);
+            riskCheckBoxList.push(true);
         } if (cardRisk === "medium") {
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(true);
-            cardCheckBoxList.push(false);
+            riskCheckBoxList.push(false);
+            riskCheckBoxList.push(true);
+            riskCheckBoxList.push(false);
         } else {
-            cardCheckBoxList.push(true);
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(false);
+            riskCheckBoxList.push(true);
+            riskCheckBoxList.push(false);
+            riskCheckBoxList.push(false);
         }
 
         if (cardType === "activeresearch") {
-            cardCheckBoxList.push(true);
+            typeCheckBoxList.push(true);
         } else {
-            cardCheckBoxList.push(false);
+            typeCheckBoxList.push(false);
         }
 
         if (cardType === "backup") {
-            cardCheckBoxList.push(true);
+            typeCheckBoxList.push(true);
         } else {
-            cardCheckBoxList.push(false);
+            typeCheckBoxList.push(false);
         }
 
         if (cardType === "archival&opendatasharing") {
-            cardCheckBoxList.push(true);
+            typeCheckBoxList.push(true);
         } else {
-            cardCheckBoxList.push(false);
+            typeCheckBoxList.push(false);
         }
 
         if (cardCollab === "otherUBCresearchers") {
-            cardCheckBoxList.push(true);
+            collabCheckBoxList.push(true);
         } else {
-            cardCheckBoxList.push(false);
+            collabCheckBoxList.push(false);
         }
 
         if (cardCollab === "specific") {
-            cardCheckBoxList.push(true);
+            collabCheckBoxList.push(true);
         } else {
-            cardCheckBoxList.push(false);
+            collabCheckBoxList.push(false);
         }
 
         if (cardCollab === "nonspecific") {
-            cardCheckBoxList.push(true);
+            collabCheckBoxList.push(true);
         } else {
-            cardCheckBoxList.push(false);
+            collabCheckBoxList.push(false);
         }
 
         if (cardCollab === "public") {
-            cardCheckBoxList.push(true);
+            collabCheckBoxList.push(true);
         } else {
-            cardCheckBoxList.push(false);
+            collabCheckBoxList.push(false);
         }
 
         if (cardAccess === "laptop") {
-            cardCheckBoxList.push(true);
+            accessCheckBoxList.push(true);
         } else {
-            cardCheckBoxList.push(false);
+            accessCheckBoxList.push(false);
         }
 
         if (cardAccess === "mobile") {
-            cardCheckBoxList.push(true);
+            accessCheckBoxList.push(true);
         } else {
-            cardCheckBoxList.push(false);
+            accessCheckBoxList.push(false);
         }
 
         if (cardDataStorage === "under100") {
-            cardCheckBoxList.push(true);
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(true);
+            dataStorageCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(false);
         } else if (cardDataStorage === "100GBto1TB") {
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(true);
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(true);
+            dataStorageCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(false);
         } else if (cardDataStorage === "1TBto5TB") {
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(true);
-            cardCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(true);
+            dataStorageCheckBoxList.push(false);
         } else {
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(false);
-            cardCheckBoxList.push(true);
+            dataStorageCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(true);
         }
 
-        return cardCheckBoxList;
+        cardCheckBoxDict = {
+            risk: riskCheckBoxList.slice(0, 3),
+            type: typeCheckBoxList,
+            collab: collabCheckBoxList,
+            access: accessCheckBoxList,
+            dataStorage: dataStorageCheckBoxList
+        };
+
+        return cardCheckBoxDict;
     }
 
+    function toggleCardSelectionBasedOnCheckBoxes() {
+        var checkBoxBoolDict = createCheckBoxBoolDict();
+        cards.forEach(function (card) {
+            var cardCheckboxList = createCardCheckBoxDict(card);
+            compareDictsBasedOnFilter(cardCheckboxList, checkBoxBoolDict, filterDict(checkBoxBoolDict), card);
+        });
+    }
     step2SelectAllButton.addEventListener("click", function () {
         cards.forEach(function (card) {
             card.classList.add("selected");
@@ -244,154 +333,25 @@ document.addEventListener("DOMContentLoaded", function () {
         checkboxes.forEach(function (checkbox) {
             checkbox.checked = false;
         });
+        cards.forEach(function (card) {
+            card.classList.remove("selected");
+            card.classList.remove("filtered");
+        });
+        updateSelectedProvidersList();
+        checkStep3Visibility();
     });
 
     cards.forEach(function (card) {
         card.addEventListener("click", toggleCardSelection);
     });
 
-    // TODO: Fix the checkboxes so that they work properly
-
-    // // Toggle selected class if risk checkbox is clicked and if the checkbox is not checked then remove selected class
-    // riskCheckboxes.forEach(function (checkbox) {
-    //     checkbox.addEventListener("click", function () {
-    //         var risk = checkbox.classList[1];
-    //         if (checkbox.checked) {
-    //             cards.forEach(function (card) {
-    //                 if (card.classList.contains(risk)) {
-    //                     card.classList.add("selected");
-    //                 }
-    //             });
-    //         } else {
-    //             cards.forEach(function (card) {
-    //                 if (card.classList.contains(risk)) {
-    //                     card.classList.remove("selected");
-    //                 }
-    //             });
-    //         }
-    //         updateSelectedProvidersList();
-    //         checkStep3Visibility();
-    //     });
-    // });
-
-    // // Toggle selected class if type checkbox is clicked and if the checkbox is not checked then remove selected class
-    // typeCheckboxes.forEach(function (checkbox) {
-    //     checkbox.addEventListener("click", function () {
-    //         var type = checkbox.classList[1];
-    //         if (checkbox.checked) {
-    //             cards.forEach(function (card) {
-    //                 if (card.classList.contains(type)) {
-    //                     card.classList.add("selected");
-    //                 }
-    //             });
-    //         } else {
-    //             cards.forEach(function (card) {
-    //                 if (card.classList.contains(type)) {
-    //                     card.classList.remove("selected");
-    //                 }
-    //             });
-    //         }
-    //         updateSelectedProvidersList();
-    //         checkStep3Visibility();
-    //     });
-    // });
-
-    // // Toggle selected class if collab checkbox is clicked and if the checkbox is not checked then remove selected class
-    // collabCheckboxes.forEach(function (checkbox) {
-    //     checkbox.addEventListener("click", function () {
-    //         var collab = checkbox.classList[1];
-    //         if (checkbox.checked) {
-    //             cards.forEach(function (card) {
-    //                 if (card.classList.contains(collab)) {
-    //                     card.classList.add("selected");
-    //                 }
-    //             });
-    //         } else {
-    //             cards.forEach(function (card) {
-    //                 if (card.classList.contains(collab)) {
-    //                     card.classList.remove("selected");
-    //                 }
-    //             });
-    //         }
-    //         updateSelectedProvidersList();
-    //         checkStep3Visibility();
-    //     });
-    // });
-
-    // // Toggle selected class if access checkbox is clicked and if the checkbox is not checked then remove selected class
-    // accessCheckboxes.forEach(function (checkbox) {
-    //     checkbox.addEventListener("click", function () {
-    //         var access = checkbox.classList[1];
-    //         if (checkbox.checked) {
-    //             cards.forEach(function (card) {
-    //                 if (card.classList.contains(access)) {
-    //                     card.classList.add("selected");
-    //                 }
-    //             });
-    //         } else {
-    //             cards.forEach(function (card) {
-    //                 if (card.classList.contains(access)) {
-    //                     card.classList.remove("selected");
-    //                 }
-    //             });
-    //         }
-    //         updateSelectedProvidersList();
-    //         checkStep3Visibility();
-    //     });
-    // });
-
-    // // Toggle selected class if data storage checkbox is clicked and if the checkbox is not checked then remove selected class
-    // dataStorageCheckboxes.forEach(function (checkbox) {
-    //     checkbox.addEventListener("click", function () {
-    //         var dataStorage = checkbox.classList[1];
-    //         if (checkbox.checked) {
-    //             cards.forEach(function (card) {
-    //                 if (card.classList.contains(dataStorage)) {
-    //                     card.classList.add("selected");
-    //                 } else {
-    //                     if (card.classList.contains("selected")) {
-    //                         card.classList.remove("selected");
-    //                     }
-    //                 }
-    //             });
-    //         } else {
-    //             cards.forEach(function (card) {
-    //                 if (card.classList.contains(dataStorage)) {
-    //                     card.classList.remove("selected");
-    //                 }
-    //             });
-    //         }
-    //         updateSelectedProvidersList();
-    //         checkStep3Visibility();
-    //     });
-    // });
-
     // Implement point 5 from the requirements
     checkboxes.forEach(function (checkbox) {
         checkbox.addEventListener("click", function () {
-            var checkBoxBoolList = [];
-            checkboxes.forEach(function (checkbox) {
-                checkBoxBoolList.push(checkbox.checked);
-            });
-
-            console.log("check: " + checkBoxBoolList);
-
-            cards.forEach(function (card) {
-                var cardChecboxList = createCardCheckBoxList(card);
-                console.log("card: " + cardChecboxList);
-
-                console.log(checkBoxBoolList);
-                if (arraysEqual(checkBoxBoolList, cardChecboxList)) {
-                    card.classList.add("selected");
-                } else {
-                    card.classList.remove("selected");
-                }
-            });
+            toggleCardSelectionBasedOnCheckBoxes();
         });
     });
 });
-
-// TODO: Update above functions so that the cards have 3 states: unfiltered, filtered and selected
 
 /* 
 Requirements:
