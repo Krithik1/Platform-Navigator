@@ -84,13 +84,18 @@
     cursor: pointer;
 }
 
+.card.filtered {
+    background-color: #ccc;
+}
+
 .card.selected {
     background-color: #1e90ff;
     color: white;
 }
 
-.card.filtered {
-    background-color: #ccc;
+.card.selected.filtered {
+    background-color: #1e90ff;
+    color: black;
 }
 
 

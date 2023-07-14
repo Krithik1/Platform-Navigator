@@ -51,8 +51,8 @@ softwareData.forEach(function (software) {
     cardsContainer.appendChild(card);
 });
 
-function onlyOneRisk(checkbox) {
-    var checkboxes = document.querySelectorAll('.risk')
+function onlyOne(checkbox, className) {
+    var checkboxes = document.querySelectorAll('.' + className)
     checkboxes.forEach((item) => {
         // Update the checked state of the other checkboxes and change the selected class of the cards based on the checked state
         if (item !== checkbox) {
@@ -311,11 +311,15 @@ document.addEventListener("DOMContentLoaded", function () {
             var cardCheckboxList = createCardCheckBoxDict(card);
             compareDictsBasedOnFilter(cardCheckboxList, checkBoxBoolDict, filterDict(checkBoxBoolDict), card);
         });
+        updateSelectedProvidersList();
+        checkStep3Visibility();
     }
     step2SelectAllButton.addEventListener("click", function () {
         cards.forEach(function (card) {
             if (card.classList.contains("filtered") || checkIfAllCheckboxesAreUnchecked()) {
                 card.classList.add("selected");
+            } else {
+                card.classList.remove("selected");
             }
         });
         updateSelectedProvidersList();

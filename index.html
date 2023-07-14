@@ -18,9 +18,9 @@
             <div class="question1">
                 <h4>What risk level is your data?</h4>
                 <div class="answer1">
-                    <input type="checkbox" name="answer1" value="1" class="risk low" onclick="onlyOneRisk(this)">Low<br>
-                    <input type="checkbox" name="answer1" value="2" class="risk medium" onclick="onlyOneRisk(this)">Medium<br>
-                    <input type="checkbox" name="answer1" value="3" class="risk high" onclick="onlyOneRisk(this)">High<br>
+                    <input type="checkbox" name="answer1" value="1" class="risk low" onclick="onlyOne(this, this.classList[0])">Low<br>
+                    <input type="checkbox" name="answer1" value="2" class="risk medium" onclick="onlyOne(this, this.classList[0])">Medium<br>
+                    <input type="checkbox" name="answer1" value="3" class="risk high" onclick="onlyOne(this, this.classList[0])">High<br>
                 </div>
             </div>
             <div class="question2">
@@ -50,10 +50,10 @@
             <div class="question5">
                 <h4>How much data do you need storage for?</h4>
                 <div class="answer5">
-                    <input type="checkbox" name="answer5" value="1" class="dataStorage under100GB" onclick="onlyOneDataStorage(this)">Under 100 GB<br>
-                    <input type="checkbox" name="answer5" value="2" class="dataStorage 100GBto1TB" onclick="onlyOneDataStorage(this)">100 GB - 1 TB<br>
-                    <input type="checkbox" name="answer5" value="3" class="dataStorage 1TBto5TB" onclick="onlyOneDataStorage(this)">1 TB - 5 TB<br>
-                    <input type="checkbox" name="answer5" value="4" class="dataStorage over5TB" onclick="onlyOneDataStorage(this)">Over 5 TB<br>
+                    <input type="checkbox" name="answer5" value="1" class="dataStorage under100GB" onclick="onlyOne(this, this.classList[0])">Under 100 GB<br>
+                    <input type="checkbox" name="answer5" value="2" class="dataStorage 100GBto1TB" onclick="onlyOne(this, this.classList[0])">100 GB - 1 TB<br>
+                    <input type="checkbox" name="answer5" value="3" class="dataStorage 1TBto5TB" onclick="onlyOne(this, this.classList[0])">1 TB - 5 TB<br>
+                    <input type="checkbox" name="answer5" value="4" class="dataStorage over5TB" onclick="onlyOne(this, this.classList[0])">Over 5 TB<br>
                 </div>
             </div>
         </div>
