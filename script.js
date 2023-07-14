@@ -61,16 +61,6 @@ function onlyOne(checkbox, className) {
     })
 }
 
-function onlyOneDataStorage(checkbox) {
-    var checkboxes = document.querySelectorAll('.dataStorage')
-    checkboxes.forEach((item) => {
-        // Update the checked state of the other checkboxes and change the selected class of the cards based on the checked state
-        if (item !== checkbox) {
-            item.checked = false;
-        }
-    })
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     var cards = document.querySelectorAll(".card");
     var infoIfSelected = document.querySelector(".info-if-selected");
