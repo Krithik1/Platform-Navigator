@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
             accessCheckBoxList.push(false);
         }
 
-        if (classListString.includes("under100")) {
+        if (classListString.includes("under100GB")) {
             dataStorageCheckBoxList.push(true);
             dataStorageCheckBoxList.push(false);
             dataStorageCheckBoxList.push(false);
