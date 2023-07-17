@@ -12,7 +12,7 @@ A data storage finder made in Vanilla HTML, CSS and JavaScript.
 
   Use the following template if **single-select** to add the code
   
-  Here <text> is a one word description of the question
+  Here ```<text>``` is a one word description of the question
 
     ```html
     <div class="question">
@@ -26,7 +26,7 @@ A data storage finder made in Vanilla HTML, CSS and JavaScript.
     ```
     Use the following template if **multi-select** to add the code
   
-    Here <text> is a one word description of the question
+    Here ```<text>``` is a one word description of the question
   
       ```html
       <div class="question">
