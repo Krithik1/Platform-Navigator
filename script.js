@@ -3,27 +3,27 @@ var softwareData = [
         Name: "Software A",
         Description: "This is software A description",
         risk: "high",
-        type: "backup",
-        collab: "public",
-        access: "mobile",
+        type: ["activeresearch", "backup"],
+        collab: ["public"],
+        access: ["mobile"],
         dataStorage: "under100GB"
     },
     {
         Name: "Software B",
         Description: "This is software B description",
-        risk: "medium",
-        type: "backup",
-        collab: "otherUBCresearchers",
-        access: "laptop",
+        risk: ["medium"],
+        type: ["backup"],
+        collab: ["otherUBCresearchers"],
+        access: ["laptop"],
         dataStorage: "100GBto1TB"
     },
     {
         Name: "Software C",
         Description: "This is software C description",
-        risk: "low",
-        type: "activeresearch",
-        collab: "public",
-        access: "laptop",
+        risk: ["low"],
+        type: ["activeresearch"],
+        collab: ["public"],
+        access: ["laptop"],
         dataStorage: "1TBto5TB"
     }
     // Add more data objects as needed
@@ -35,9 +35,18 @@ softwareData.forEach(function (software) {
     var card = document.createElement('div');
     card.classList.add('card');
     card.classList.add(software.risk);
-    card.classList.add(software.type);
-    card.classList.add(software.collab);
-    card.classList.add(software.access);
+    // card.classList.add(software.type);
+    // card.classList.add(software.collab);
+    // card.classList.add(software.access);
+    for (var i = 0; i < software.type.length; i++) {
+        card.classList.add(software.type[i]);
+    }
+    for (var i = 0; i < software.collab.length; i++) {
+        card.classList.add(software.collab[i]);
+    }
+    for (var i = 0; i < software.access.length; i++) {
+        card.classList.add(software.access[i]);
+    }
     card.classList.add(software.dataStorage);
 
     var nameElement = document.createElement('h4');
@@ -124,10 +133,21 @@ document.addEventListener("DOMContentLoaded", function () {
         return filterList;
     }
 
+    function implies(list1, list2) {
+        console.log(list1);
+        console.log(list2);
+        for (var i =  0; i < list1.length; i++) {
+            if (list1[i] && !list2[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     function compareDictsBasedOnFilter(dict1, dict2, filterList, card) {
         var cardRemoved = false;
         for (var key in filterList) {
-            if (arrayEquals(dict1[filterList[key]], dict2[filterList[key]]) && !cardRemoved) {
+            if (implies(dict2[filterList[key]], dict1[filterList[key]]) && !cardRemoved) {
                 card.classList.add("filtered");
             } else {
                 card.classList.remove("filtered");
@@ -182,11 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var collabCheckBoxList = [];
         var accessCheckBoxList = [];
         var dataStorageCheckBoxList = [];
-        var cardRisk = card.classList[1];
-        var cardType = card.classList[2];
-        var cardCollab = card.classList[3];
-        var cardAccess = card.classList[4];
-        var cardDataStorage = card.classList[5];
+        var classListString = Array.from(card.classList);
         var cardCheckBoxDict = {
             risk: [],
             type: [],
@@ -194,94 +210,103 @@ document.addEventListener("DOMContentLoaded", function () {
             access: [],
             dataStorage: []
         };
-        if (cardRisk === "high") {
+        if (classListString.includes("high")) {
             riskCheckBoxList.push(false);
             riskCheckBoxList.push(false);
             riskCheckBoxList.push(true);
-        } if (cardRisk === "medium") {
+        } else if (classListString.includes("medium")) {
             riskCheckBoxList.push(false);
             riskCheckBoxList.push(true);
+            riskCheckBoxList.push(false);
+        } else if (classListString.includes("low")) {
+            riskCheckBoxList.push(true);
+            riskCheckBoxList.push(false);
             riskCheckBoxList.push(false);
         } else {
-            riskCheckBoxList.push(true);
+            riskCheckBoxList.push(false);
             riskCheckBoxList.push(false);
             riskCheckBoxList.push(false);
         }
 
-        if (cardType === "activeresearch") {
+        if (classListString.includes("activeresearch")) {
             typeCheckBoxList.push(true);
         } else {
             typeCheckBoxList.push(false);
         }
 
-        if (cardType === "backup") {
+        if (classListString.includes("backup")) {
             typeCheckBoxList.push(true);
         } else {
             typeCheckBoxList.push(false);
         }
 
-        if (cardType === "archival&opendatasharing") {
+        if (classListString.includes("archival&opendatasharing")) {
             typeCheckBoxList.push(true);
         } else {
             typeCheckBoxList.push(false);
         }
 
-        if (cardCollab === "otherUBCresearchers") {
+        if (classListString.includes("otherUBCresearchers")) {
             collabCheckBoxList.push(true);
         } else {
             collabCheckBoxList.push(false);
         }
 
-        if (cardCollab === "specific") {
+        if (classListString.includes("specific")) {
             collabCheckBoxList.push(true);
         } else {
             collabCheckBoxList.push(false);
         }
 
-        if (cardCollab === "nonspecific") {
+        if (classListString.includes("nonspecific")) {
             collabCheckBoxList.push(true);
         } else {
             collabCheckBoxList.push(false);
         }
 
-        if (cardCollab === "public") {
+        if (classListString.includes("public")) {
             collabCheckBoxList.push(true);
         } else {
             collabCheckBoxList.push(false);
         }
 
-        if (cardAccess === "laptop") {
+        if (classListString.includes("laptop")) {
             accessCheckBoxList.push(true);
         } else {
             accessCheckBoxList.push(false);
         }
 
-        if (cardAccess === "mobile") {
+        if (classListString.includes("mobile")) {
             accessCheckBoxList.push(true);
         } else {
             accessCheckBoxList.push(false);
         }
 
-        if (cardDataStorage === "under100") {
+        if (classListString.includes("under100")) {
             dataStorageCheckBoxList.push(true);
             dataStorageCheckBoxList.push(false);
             dataStorageCheckBoxList.push(false);
             dataStorageCheckBoxList.push(false);
-        } else if (cardDataStorage === "100GBto1TB") {
+        } else if (classListString.includes("100GBto1TB")) {
             dataStorageCheckBoxList.push(false);
             dataStorageCheckBoxList.push(true);
             dataStorageCheckBoxList.push(false);
             dataStorageCheckBoxList.push(false);
-        } else if (cardDataStorage === "1TBto5TB") {
+        } else if (classListString.includes("1TBto5TB")) {
             dataStorageCheckBoxList.push(false);
             dataStorageCheckBoxList.push(false);
             dataStorageCheckBoxList.push(true);
             dataStorageCheckBoxList.push(false);
+        } else if (classListString.includes("over5TB")) {
+            dataStorageCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(false);
+            dataStorageCheckBoxList.push(true);
         } else {
             dataStorageCheckBoxList.push(false);
             dataStorageCheckBoxList.push(false);
             dataStorageCheckBoxList.push(false);
-            dataStorageCheckBoxList.push(true);
+            dataStorageCheckBoxList.push(false);
         }
 
         cardCheckBoxDict = {
