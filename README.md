@@ -28,16 +28,16 @@ A data storage finder made in Vanilla HTML, CSS and JavaScript.
   
     Here ```<text>``` is a one word description of the question
   
-      ```html
-      <div class="question">
-        <h4>DESCRIPTION</h4>
-        <div class="answer">
-          <input type="checkbox" name="<text>" class="<text> <answer-in-lowercase-nospaces>">Answer<br>
-          <input type="checkbox" name="<text>" class="<text> <answer-in-lowercase-nospaces>">Answer<br>
-          <input type="checkbox" name="<text>" class="<text> <answer-in-lowercase-nospaces>">Answer<br>
-        </div>
+    ```html
+    <div class="question">
+      <h4>DESCRIPTION</h4>
+      <div class="answer">
+        <input type="checkbox" name="<text>" class="<text> <answer-in-lowercase-nospaces>">Answer<br>
+        <input type="checkbox" name="<text>" class="<text> <answer-in-lowercase-nospaces>">Answer<br>
+        <input type="checkbox" name="<text>" class="<text> <answer-in-lowercase-nospaces>">Answer<br>
       </div>
-      ```
+    </div>
+    ```
   
   Next go to script.js
   
