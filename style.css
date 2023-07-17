@@ -21,20 +21,16 @@
     padding-left: 20px;
 }
 
-.question1:before,
-.question2:before,
-.question3:before,
-.question4:before,
-.question5:before {
+.question:before {
     counter-increment: question-counter;
     content: counter(question-counter) ". ";
 }
 
-.question1 h4,
-.question2 h4,
-.question3 h4,
-.question4 h4,
-.question5 h4 {
+h4,
+h4,
+h4,
+h4,
+h4 {
     display: inline;
 }
 

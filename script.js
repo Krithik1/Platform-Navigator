@@ -11,7 +11,7 @@ var softwareData = [
     {
         Name: "Software B",
         Description: "This is software B description",
-        risk: ["medium"],
+        risk: "medium",
         type: ["backup"],
         collab: ["otherUBCresearchers"],
         access: ["laptop"],
@@ -20,7 +20,7 @@ var softwareData = [
     {
         Name: "Software C",
         Description: "This is software C description",
-        risk: ["low"],
+        risk: "low",
         type: ["activeresearch"],
         collab: ["public"],
         access: ["laptop"],
@@ -35,9 +35,6 @@ softwareData.forEach(function (software) {
     var card = document.createElement('div');
     card.classList.add('card');
     card.classList.add(software.risk);
-    // card.classList.add(software.type);
-    // card.classList.add(software.collab);
-    // card.classList.add(software.access);
     for (var i = 0; i < software.type.length; i++) {
         card.classList.add(software.type[i]);
     }
@@ -136,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function implies(list1, list2) {
         console.log(list1);
         console.log(list2);
-        for (var i =  0; i < list1.length; i++) {
+        for (var i = 0; i < list1.length; i++) {
             if (list1[i] && !list2[i]) {
                 return false;
             }
