@@ -145,7 +145,6 @@ clearAnswersButton.addEventListener("click", function () {
         checkbox.checked = false;
     });
     cards.forEach(function (card) {
-        card.classList.remove("selected");
         card.classList.remove("filtered");
     });
     updateSelectedProvidersList();
