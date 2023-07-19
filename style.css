@@ -36,9 +36,7 @@ h4 {
 
 .clear-answers,
 .step2-select-all,
-.step3-select-all,
-.step2-clear-selections,
-.step3-clear-selections {
+.step2-clear-selections {
     background-color: #1e90ff;
     /* Dark blue color */
     color: white;
@@ -53,9 +51,7 @@ h4 {
 
 .clear-answers:hover,
 .step2-select-all:hover,
-.step3-select-all:hover,
-.step2-clear-selections:hover,
-.step3-clear-selections:hover {
+.step2-clear-selections:hover {
     background-color: #003399;
     /* Darker blue color on hover */
     cursor: pointer;
@@ -103,3 +99,9 @@ h4 {
         flex-direction: column;
     }
 }
+table {
+    margin-top: 10px;
+}
+table, th, td {
+    border: 1px solid;
+  }
