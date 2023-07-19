@@ -281,6 +281,7 @@ function updateSelectedProvidersList() {
     var selectedCards = document.querySelectorAll(".card.selected");
 
     var tableHTML = `
+    <div class="table-container">
         <table class="list">
             <thead>
                 <tr>
@@ -332,7 +333,8 @@ function updateSelectedProvidersList() {
 
     tableHTML += `
             </tbody>
-        </table>`;
+        </table>
+    </div>`;
 
     selectedProvidersList.innerHTML = tableHTML;
 }

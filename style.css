@@ -95,13 +95,33 @@ h4 {
     .cards-container {
         grid-template-columns: 1fr;
     }
+
     .questions-and-data {
         flex-direction: column;
     }
 }
+
 table {
     margin-top: 10px;
 }
-table, th, td {
+
+table,
+th,
+td {
     border: 1px solid;
-  }
+}
+
+.table-container {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.list {
+    width: max-content;
+    white-space: nowrap;
+}
+
+.list th,
+.list td {
+    padding: 8px;
+}
