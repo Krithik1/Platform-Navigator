@@ -1,4 +1,4 @@
-var checkboxClasses = [
+let checkboxClasses = [
     'risk high',
     'risk medium',
     'risk low',
@@ -17,9 +17,9 @@ var checkboxClasses = [
     'dataStorage over5TB'
 ];
 
-var questionClasses = ["risk", "type", "collab", "access", "dataStorage"];
+let questionClasses = ["risk", "type", "collab", "access", "dataStorage"];
 
-var softwareData = [
+let softwareData = [
     {
         risk: ["high"],
         type: ["activeresearch", "backup"],
@@ -52,35 +52,35 @@ var softwareData = [
 
 // Dynamically compute the number of questions based on the data object
 function computeNumQuestions() {
-    var questionsDiv = document.querySelector('.questions');
-    var questions = questionsDiv.querySelectorAll('.question');
-    var numQuestions = questions.length;
+    let questionsDiv = document.querySelector('.questions');
+    let questions = questionsDiv.querySelectorAll('.question');
+    let numQuestions = questions.length;
     return numQuestions;
 }
 
-var numQuestions = computeNumQuestions();
+let numQuestions = computeNumQuestions();
 
 // Generate card-like structures dynamically using the data object
 function generateCards() {
-    var cardsContainer = document.querySelector('.cards-container');
+    let cardsContainer = document.querySelector('.cards-container');
     softwareData.forEach(function (software) {
-        var card = document.createElement('div');
+        let card = document.createElement('div');
         card.classList.add('card');
         count = 0;
-        for (var key in software) {
+        for (let key in software) {
             if (count >= numQuestions) {
                 break;
             }
-            for (var i = 0; i < software[key].length; i++) {
+            for (let i = 0; i < software[key].length; i++) {
                 card.classList.add(software[key][i]);
             }
             count++;
         }
 
-        var nameElement = document.createElement('h4');
+        let nameElement = document.createElement('h4');
         nameElement.textContent = software.Name;
 
-        var descriptionElement = document.createElement('p');
+        let descriptionElement = document.createElement('p');
         descriptionElement.textContent = software.Description;
 
         card.appendChild(nameElement);
@@ -92,7 +92,7 @@ function generateCards() {
 generateCards();
 
 function onlyOne(checkbox, className) {
-    var checkboxes = document.querySelectorAll('.' + className)
+    let checkboxes = document.querySelectorAll('.' + className)
     checkboxes.forEach((item) => {
         // Update the checked state of the other checkboxes and change the selected class of the cards based on the checked state
         if (item !== checkbox) {
@@ -102,13 +102,13 @@ function onlyOne(checkbox, className) {
 }
 
 
-var cards = document.querySelectorAll(".card");
-var infoIfSelected = document.querySelector(".info-if-selected");
-var selectedProvidersList = document.querySelector(".selected-data-storage-providers-list");
-var step2SelectAllButton = document.querySelector(".step2-select-all");
-var step2ClearAnswersButton = document.querySelector(".step2-clear-selections");
-var clearAnswersButton = document.querySelector(".clear-answers");
-var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+let cards = document.querySelectorAll(".card");
+let infoIfSelected = document.querySelector(".info-if-selected");
+let selectedProvidersList = document.querySelector(".selected-data-storage-providers-list");
+let step2SelectAllButton = document.querySelector(".step2-select-all");
+let step2ClearAnswersButton = document.querySelector(".step2-clear-selections");
+let clearAnswersButton = document.querySelector(".clear-answers");
+let checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
 cards.forEach(function (card) {
     card.addEventListener("click", toggleCardSelection);
@@ -156,9 +156,9 @@ clearAnswersButton.addEventListener("click", function () {
  * selected providers list and step 3 visibility.
  */
 function toggleCardSelectionBasedOnCheckBoxes() {
-    var checkBoxBoolDict = createCheckBoxBoolDict(questionClasses);
+    let checkBoxBoolDict = createCheckBoxBoolDict(questionClasses);
     cards.forEach(function (card) {
-        var cardCheckBoxDict = createCardCheckBoxDict(card, checkboxClasses);
+        let cardCheckBoxDict = createCardCheckBoxDict(card, checkboxClasses);
         compareDictsBasedOnFilter(cardCheckBoxDict, checkBoxBoolDict, filterDict(checkBoxBoolDict), card);
     });
     updateSelectedProvidersList();
@@ -177,11 +177,11 @@ function toggleCardSelectionBasedOnCheckBoxes() {
  * corresponding checkboxes with the same name are checked or not.
  */
 function createCheckBoxBoolDict(questionClasses) {
-    var checkBoxBoolDict = {};
+    let checkBoxBoolDict = {};
     questionClasses.forEach(function (questionClass) {
-        var classListString = questionClass.split(" ");
+        let classListString = questionClass.split(" ");
         checkBoxBoolDict[classListString[0]] = [];
-        var checkboxes = document.querySelectorAll('input[name="' + classListString[0] + '"');
+        let checkboxes = document.querySelectorAll('input[name="' + classListString[0] + '"');
         checkboxes.forEach(function (checkbox) {
             checkBoxBoolDict[classListString[0]].push(checkbox.checked);
         });
@@ -198,11 +198,11 @@ function createCheckBoxBoolDict(questionClasses) {
  * boolean values as values.
  */
 function createCardCheckBoxDict(card, checkboxClasses) {
-    var checkBoxDict = {};
+    let checkBoxDict = {};
 
     checkboxClasses.forEach(function (checkboxClass) {
-        var classListString = checkboxClass.split(" ");
-        var classValue = card.classList.contains(classListString[1]);
+        let classListString = checkboxClass.split(" ");
+        let classValue = card.classList.contains(classListString[1]);
         if (!(classListString[0] in checkBoxDict)) {
             checkBoxDict[classListString[0]] = [];
         }
@@ -223,8 +223,8 @@ function createCardCheckBoxDict(card, checkboxClasses) {
  * item in a list.
  */
 function compareDictsBasedOnFilter(dict1, dict2, filterList, card) {
-    var cardRemoved = false;
-    for (var key in filterList) {
+    let cardRemoved = false;
+    for (let key in filterList) {
         if (implies(dict2[filterList[key]], dict1[filterList[key]]) && !cardRemoved) {
             card.classList.add("filtered");
         } else {
@@ -243,7 +243,7 @@ function compareDictsBasedOnFilter(dict1, dict2, filterList, card) {
  * @returns a boolean value indicating whether all checkboxes are unchecked.
  */
 function checkIfAllCheckboxesAreUnchecked() {
-    var allUnchecked = true;
+    let allUnchecked = true;
     checkboxes.forEach(function (checkbox) {
         if (checkbox.checked) {
             allUnchecked = false;
@@ -270,16 +270,16 @@ function toggleCardSelection() {
  * of step 3 to block from none and vice-versa.
  */
 function checkStep3Visibility() {
-    var selectedCards = document.querySelectorAll(".card.selected");
+    let selectedCards = document.querySelectorAll(".card.selected");
     infoIfSelected.style.display = selectedCards.length > 0 ? "block" : "none";
 }
 
 function updateSelectedProvidersList() {
     selectedProvidersList.innerHTML = ""; // Clear the previous content
 
-    var selectedCards = document.querySelectorAll(".card.selected");
+    let selectedCards = document.querySelectorAll(".card.selected");
 
-    var tableHTML = `
+    let tableHTML = `
     <div class="table-container">
         <table class="list">
             <thead>
@@ -287,7 +287,7 @@ function updateSelectedProvidersList() {
                     <th></th>`; // Empty first header column
 
     selectedCards.forEach(function (card) {
-        var name = card.querySelector("h4").textContent;
+        let name = card.querySelector("h4").textContent;
         tableHTML += `<th>${name}</th>`; // Add software names as header columns
     });
 
@@ -301,11 +301,11 @@ function updateSelectedProvidersList() {
             <td><b>Description</b></td>`; // Add row for descriptions
 
     selectedCards.forEach(function (card) {
-        var name = card.querySelector("h4").textContent;
+        let name = card.querySelector("h4").textContent;
 
         softwareData.forEach(function (data) {
             if (data.Name === name) {
-                var description = data.Description;
+                let description = data.Description;
                 tableHTML += `<td>${description}</td>`; // Add software-specific description as table cell
             }
         });
@@ -313,15 +313,15 @@ function updateSelectedProvidersList() {
 
     questionClasses.forEach(function (questionClass) {
         tableHTML += "<tr>";
-        var question = questionClass.charAt(0).toUpperCase() + questionClass.slice(1)
+        let question = questionClass.charAt(0).toUpperCase() + questionClass.slice(1)
         tableHTML += `<td><b>${question}</b></td>`; // First column represents the question
 
         selectedCards.forEach(function (card) {
-            var name = card.querySelector("h4").textContent;
+            let name = card.querySelector("h4").textContent;
 
             softwareData.forEach(function (data) {
                 if (data.Name === name) {
-                    var answer = data[questionClass] ? data[questionClass] : "";
+                    let answer = data[questionClass] ? data[questionClass] : "";
                     tableHTML += `<td>${answer}</td>`; // Add software-specific answer as table cell
                 }
             });
@@ -348,8 +348,8 @@ function updateSelectedProvidersList() {
  * false.
  */
 function filterDict(dict) {
-    var filterList = [];
-    for (var key in dict) {
+    let filterList = [];
+    for (let key in dict) {
         if (!checkAllFalse(dict[key])) {
             filterList.push(key);
         }
@@ -376,7 +376,7 @@ function checkAllFalse(list) {
  * elements in list2, and false otherwise.
  */
 function implies(list1, list2) {
-    for (var i = 0; i < list1.length; i++) {
+    for (let i = 0; i < list1.length; i++) {
         if (list1[i] && !list2[i]) {
             return false;
         }
