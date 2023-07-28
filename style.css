@@ -138,7 +138,7 @@ td {
     content: attr(data-info);
     position: absolute;
     top: -50px;
-    left: 10px;
+    /* left: 20px; */
     background-color: #333;
     color: #fff;
     padding: 5px;
@@ -156,4 +156,7 @@ td {
 .info-icon {
     color: #007bff; /* Change the color to your desired color */
     font-size: 16px; /* Optional: Adjust the font size as needed */
+    padding: 10px;
+    border-radius:50%;
+    background-clip:content-box; /* <- key point*/
 }
