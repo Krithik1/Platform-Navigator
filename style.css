@@ -6,10 +6,10 @@
 .questions {
     flex: 1;
     border-right: 1px solid #ccc;
-    /* Add vertical scroll bar */
+    /* Add vertical scroll bar
     overflow-y: scroll;
-    /* Limit the height to fit 3 questions */
-    max-height: calc(100vh - 180px);
+     Limit the height to fit 3 questions
+    max-height: calc(100vh - 180px); */
 }
 
 .questions>div {
@@ -124,4 +124,36 @@ td {
 .list th,
 .list td {
     padding: 8px;
+}
+
+/* Style for the info button */
+.info-button {
+    cursor: pointer;
+    margin-left: 5px;
+    position: relative;
+}
+
+/* Style for the tooltip message */
+.info-button::after {
+    content: attr(data-info);
+    position: absolute;
+    top: -50px;
+    left: 10px;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    display: none;
+    white-space: pre-wrap;
+    max-width: 300px; /* Adjust the max-width value to fit approximately 7 words per line */
+}
+
+/* Show tooltip message on hover */
+.info-button:hover::after {
+    display: block;
+}
+
+.info-icon {
+    color: #007bff; /* Change the color to your desired color */
+    font-size: 16px; /* Optional: Adjust the font size as needed */
 }
