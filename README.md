@@ -1,4 +1,4 @@
-# Data-Storage-Finder
+# Platform Navigator
 
 A data storage finder made in Vanilla HTML, CSS and JavaScript.
 
