@@ -1,3 +1,7 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .questions-and-data {
     display: flex;
     counter-reset: question-counter;
@@ -138,7 +142,7 @@ td {
     content: attr(data-info);
     position: absolute;
     top: -50px;
-    /* left: 20px; */
+    left: 20px;
     background-color: #333;
     color: #fff;
     padding: 5px;

@@ -1,51 +1,41 @@
 let checkboxClasses = [
-    'risk high',
-    'risk medium',
-    'risk low',
-    'type activeresearch',
-    'type backup',
-    'type archival&opendatasharing',
-    'collab otherUBCresearchers',
-    'collab specific',
-    'collab nonspecific',
-    'collab public',
-    'access laptop',
-    'access mobile',
-    'dataStorage under100GB',
-    'dataStorage 100GBto1TB',
-    'dataStorage 1TBto5TB',
-    'dataStorage over5TB'
+    "purpose REB-approved",
+    "purpose QI-QA",
+    "purpose admin-operations-support",
+    "purpose non-human-research",
+    "type qualitative",
+    "type quantitative",
+    "type mixed-methods",
+    "collection surveys",
+    "collection direct-data-entry",
+    "collection interview-focus-groups",
+    "collection import",
+    "source biospecimen",
+    "source lab-slides",
+    "source image-videos",
+    "source genomics",
+    "source literature-reviews",
+    "source other-data-sources"
 ];
 
-let questionClasses = ["risk", "type", "collab", "access", "dataStorage"];
+let questionClasses = ["purpose", "type", "collection", "source"];
 
 let softwareData = [
     {
-        risk: ["high"],
-        type: ["activeresearch", "backup"],
-        collab: ["public"],
-        access: ["mobile"],
-        dataStorage: ["under100GB"],
-        Name: "Software A",
-        Description: "This is software A description"
+        purpose: ["REB-approved", "QI-QA"],
+        type: ["qualitative", "quantitative"],
+        collection: ["surveys", "direct-data-entry", "interview-focus-groups", "import"],
+        source: ["genomics", "other-data-sources"],
+        Name: "RedCap",
+        Description: "RedCap Description"
     },
     {
-        risk: ["medium"],
-        type: ["backup"],
-        collab: ["otherUBCresearchers"],
-        access: ["laptop"],
-        dataStorage: ["100GBto1TB"],
-        Name: "Software B",
-        Description: "This is software B description"
-    },
-    {
-        risk: ["low"],
-        type: ["activeresearch"],
-        collab: ["public"],
-        access: ["laptop"],
-        dataStorage: ["1TBto5TB"],
-        Name: "Software C",
-        Description: "This is software C description"
+        purpose: ["admin-operations-support"],
+        type: ["quantitative"],
+        collection: ["surveys", "import"],
+        source: ["image-videos", "other-data-sources"],
+        Name: "Qualtrics",
+        Description: "Qualtrics Description"
     }
     // Add more data objects as needed
 ];
@@ -100,6 +90,23 @@ function onlyOne(checkbox, className) {
         }
     })
 }
+
+function makePropertiesList(inputArray) {
+    function makeReadable(inputString) {
+      // Split the string into an array of words based on the '-' delimiter
+      const wordsArray = inputString.split('-');
+  
+      // Capitalize the first letter of each word
+      const capitalizedWordsArray = wordsArray.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+  
+      // Join the words back together with spaces between them
+      return capitalizedWordsArray.join(' ');
+    }
+  
+    const readableArray = inputArray.map(makeReadable);
+  
+    return readableArray.join(', ');
+  }
 
 
 let cards = document.querySelectorAll(".card");
@@ -322,6 +329,7 @@ function updateSelectedProvidersList() {
             softwareData.forEach(function (data) {
                 if (data.Name === name) {
                     let answer = data[questionClass] ? data[questionClass] : "";
+                    answer = makePropertiesList(answer)
                     tableHTML += `<td>${answer}</td>`; // Add software-specific answer as table cell
                 }
             });

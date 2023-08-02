@@ -16,49 +16,44 @@
                 <button class="clear-answers">Clear Answer</button>
             </div>
             <div class="question">
-                <h4>What risk level is your data?</h4>
-                <span class="info-button" data-info="The risk level of your data refers to the potential harm or consequences if the data is compromised or accessed by unauthorized individuals. Please select the appropriate risk level for your data."><span class="info-icon">ℹ️</span></span>
+                <h4>What is the purpose of the platform?</h4>
+                <span class="info-button" data-info="Purpose of the platform"><span class="info-icon">ℹ️</span></span>
                 <div class="answer">
-                    <input type="checkbox" name="risk" class="risk low" onclick="onlyOne(this, this.classList[0])">Low<br>
-                    <input type="checkbox" name="risk" class="risk medium" onclick="onlyOne(this, this.classList[0])">Medium<br>
-                    <input type="checkbox" name="risk" class="risk high" onclick="onlyOne(this, this.classList[0])">High<br>
+                    <input type="checkbox" name="purpose" class="purpose REB-approved" onclick="onlyOne(this, this.classList[0])">REB (Research Ethics Board) Approved<br>
+                    <input type="checkbox" name="purpose" class="purpose QI-QA" onclick="onlyOne(this, this.classList[0])">QI/QA<br>
+                    <input type="checkbox" name="purpose" class="purpose admin-operations-support" onclick="onlyOne(this, this.classList[0])">Admin/Operations Support<br>
+                    <input type="checkbox" name="purpose" class="purpose non-human-research" onclick="onlyOne(this, this.classList[0])">Non-Human Research<br>
                 </div>
             </div>
             <div class="question">
-                <h4>What type of data storage are you looking for?</h4>
-                <span class="info-button" data-info="The risk level of your data refers to the potential harm or consequences if the data is compromised or accessed by unauthorized individuals. Please select the appropriate risk level for your data."><span class="info-icon">ℹ️</span></span>
+                <h4>What is the data type?</h4>
+                <span class="info-button" data-info="Data Type"><span class="info-icon">ℹ️</span></span>
                 <div class="answer">
-                    <input type="checkbox" name="type" class="type activeresearch">Active Research<br>
-                    <input type="checkbox" name="type" class="type backup">Backup<br>
-                    <input type="checkbox" name="type" class="type archival&opendatasharing">Archival & Open data sharing<br>
+                    <input type="checkbox" name="type" class="type qualitative" onclick="onlyOne(this, this.classList[0])">Qualitative<br>
+                    <input type="checkbox" name="type" class="type quantitative" onclick="onlyOne(this, this.classList[0])">Quantitative<br>
+                    <input type="checkbox" name="type" class="type mixed-methods" onclick="onlyOne(this, this.classList[0])">Mixed Methods<br>
                 </div>
             </div>
             <div class="question">
-                <h4>Are you collaborating with other researchers?</h4>
-                <span class="info-button" data-info="The risk level of your data refers to the potential harm or consequences if the data is compromised or accessed by unauthorized individuals. Please select the appropriate risk level for your data."><span class="info-icon">ℹ️</span></span>
+                <h4>What is the Data Collection type?</h4>
+                <span class="info-button" data-info="Data Collection Type"><span class="info-icon">ℹ️</span></span>
                 <div class="answer">
-                    <input type="checkbox" name="collab" class="collab otherUBCresearchers">Other UBC Researchers<br>
-                    <input type="checkbox" name="collab" class="collab specific">Specific researchers external to UBC<br>
-                    <input type="checkbox" name="collab" class="collab nonspecific">Non-specific individuals with a shared link<br>
-                    <input type="checkbox" name="collab" class="collab public">Public<br>
+                    <input type="checkbox" name="collection" class="collection surveys">Surveys<br>
+                    <input type="checkbox" name="collection" class="collection direct-data-entry">Direct Data Entry<br>
+                    <input type="checkbox" name="collection" class="collection interview-focus-groups">Interviews/Focus Groups<br>
+                    <input type="checkbox" name="collection" class="collection import">Import<br>
                 </div>
             </div>
             <div class="question">
-                <h4>Where will you be accessing your data from?</h4>
-                <span class="info-button" data-info="The risk level of your data refers to the potential harm or consequences if the data is compromised or accessed by unauthorized individuals. Please select the appropriate risk level for your data."><span class="info-icon">ℹ️</span></span>
+                <h4>What is the Data Source?</h4>
+                <span class="info-button" data-info="Data Source"><span class="info-icon">ℹ️</span></span>
                 <div class="answer">
-                    <input type="checkbox" name="access" class="access laptop">Laptop/Desktop Computer<br>
-                    <input type="checkbox" name="access" class="access mobile">Mobile Device<br>
-                </div>
-            </div>
-            <div class="question">
-                <h4>How much data do you need storage for?</h4>
-                <span class="info-button" data-info="The risk level of your data refers to the potential harm or consequences if the data is compromised or accessed by unauthorized individuals. Please select the appropriate risk level for your data."><span class="info-icon">ℹ️</span></span>
-                <div class="answer">
-                    <input type="checkbox" name="dataStorage" class="dataStorage under100GB" onclick="onlyOne(this, this.classList[0])">Under 100 GB<br>
-                    <input type="checkbox" name="dataStorage" class="dataStorage 100GBto1TB" onclick="onlyOne(this, this.classList[0])">100 GB - 1 TB<br>
-                    <input type="checkbox" name="dataStorage" class="dataStorage 1TBto5TB" onclick="onlyOne(this, this.classList[0])">1 TB - 5 TB<br>
-                    <input type="checkbox" name="dataStorage" class="dataStorage over5TB" onclick="onlyOne(this, this.classList[0])">Over 5 TB<br>
+                    <input type="checkbox" name="source" class="source biospecimen">Biospecimen<br>
+                    <input type="checkbox" name="source" class="source lab-slides">Lab Slides<br>
+                    <input type="checkbox" name="source" class="source image-videos">Image/Videos<br>
+                    <input type="checkbox" name="source" class="source genomics">Genomics (Patient Data File) <br>
+                    <input type="checkbox" name="source" class="source literature-reviews">Literature Reviews<br>
+                    <input type="checkbox" name="source" class="source other-data-sources">Other Data Sources<br>
                 </div>
             </div>
         </div>
