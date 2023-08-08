@@ -1,6 +1,6 @@
 # Platform Navigator
 
-A data storage finder made in Vanilla HTML, CSS and JavaScript.
+A Platform Navigator made in Vanilla HTML, CSS and JavaScript.
 
 ## How to edit for your Use Case?
 
