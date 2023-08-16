@@ -1,4 +1,4 @@
-let checkboxClasses = [
+let answerClasses = [
     "purpose REB-approved",
     "purpose QI-QA",
     "purpose admin-operations-support",
@@ -81,25 +81,10 @@ function generateCards() {
 
 generateCards();
 
-function onlyOne(checkbox, className) {
-    let checkboxes = document.querySelectorAll('.' + className)
-    checkboxes.forEach((item) => {
-        // Update the checked state of the other checkboxes and change the selected class of the cards based on the checked state
-        if (item !== checkbox) {
-            item.checked = false;
-        }
-    })
-}
-
 function makePropertiesList(inputArray) {
     function makeReadable(inputString) {
-      // Split the string into an array of words based on the '-' delimiter
       const wordsArray = inputString.split('-');
-  
-      // Capitalize the first letter of each word
       const capitalizedWordsArray = wordsArray.map(word => word.charAt(0).toUpperCase() + word.slice(1));
-  
-      // Join the words back together with spaces between them
       return capitalizedWordsArray.join(' ');
     }
   
@@ -116,6 +101,7 @@ let step2SelectAllButton = document.querySelector(".step2-select-all");
 let step2ClearAnswersButton = document.querySelector(".step2-clear-selections");
 let clearAnswersButton = document.querySelector(".clear-answers");
 let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+let radioButtons = document.querySelectorAll('input[type="radio"]');
 
 cards.forEach(function (card) {
     card.addEventListener("click", toggleCardSelection);
@@ -123,13 +109,19 @@ cards.forEach(function (card) {
 
 checkboxes.forEach(function (checkbox) {
     checkbox.addEventListener("click", function () {
-        toggleCardSelectionBasedOnCheckBoxes();
+        toggleCardSelectionBasedOnAnswers();
+    });
+});
+
+radioButtons.forEach(function (radio) {
+    radio.addEventListener("click", function () {
+        toggleCardSelectionBasedOnAnswers();
     });
 });
 
 step2SelectAllButton.addEventListener("click", function () {
     cards.forEach(function (card) {
-        if (card.classList.contains("filtered") || checkIfAllCheckboxesAreUnchecked()) {
+        if (card.classList.contains("filtered") || checkIfAllAnswersAreUnchecked()) {
             card.classList.add("selected");
         } else {
             card.classList.remove("selected");
@@ -151,6 +143,9 @@ clearAnswersButton.addEventListener("click", function () {
     checkboxes.forEach(function (checkbox) {
         checkbox.checked = false;
     });
+    radioButtons.forEach(function (radio) {
+        radio.checked = false;
+    });
     cards.forEach(function (card) {
         card.classList.remove("filtered");
     });
@@ -159,14 +154,14 @@ clearAnswersButton.addEventListener("click", function () {
 });
 
 /**
- * The function toggles the selection of cards based on the state of checkboxes and updates the
+ * The function toggles the selection of cards based on the state of answers and updates the
  * selected providers list and step 3 visibility.
  */
-function toggleCardSelectionBasedOnCheckBoxes() {
-    let checkBoxBoolDict = createCheckBoxBoolDict(questionClasses);
+function toggleCardSelectionBasedOnAnswers() {
+    let answerBoolDict = createAnswerBoolDict(questionClasses);
     cards.forEach(function (card) {
-        let cardCheckBoxDict = createCardCheckBoxDict(card, checkboxClasses);
-        compareDictsBasedOnFilter(cardCheckBoxDict, checkBoxBoolDict, filterDict(checkBoxBoolDict), card);
+        let cardAnswerDict = createAnswerDict(card, answerClasses);
+        compareDictsBasedOnFilter(cardAnswerDict, answerBoolDict, filterDict(answerBoolDict), card);
     });
     updateSelectedProvidersList();
     checkStep3Visibility();
@@ -174,49 +169,49 @@ function toggleCardSelectionBasedOnCheckBoxes() {
 
 /**
  * The function creates a dictionary where the keys are class names and the values are arrays of
- * boolean values indicating whether the corresponding checkboxes are checked or not.
+ * boolean values indicating whether the corresponding answers are checked or not.
  * @param questionClasses - questionClasses is an array of strings representing the classes of the
- * questions. Each string in the array should be in the format "questionClass checkboxClass", where
- * "questionClass" is the class name of the question and "checkboxClass" is the class name of the
- * checkboxes associated with that question.
+ * questions. Each string in the array should be in the format "questionClass answerClass", where
+ * "questionClass" is the class name of the question and "answerClass" is the class name of the
+ * answers associated with that question.
  * @returns a dictionary object where the keys are the first elements of the strings in the
  * `questionClasses` array, and the values are arrays of boolean values indicating whether the
- * corresponding checkboxes with the same name are checked or not.
+ * corresponding answers with the same name are checked or not.
  */
-function createCheckBoxBoolDict(questionClasses) {
-    let checkBoxBoolDict = {};
+function createAnswerBoolDict(questionClasses) {
+    let answerBoolDict = {};
     questionClasses.forEach(function (questionClass) {
         let classListString = questionClass.split(" ");
-        checkBoxBoolDict[classListString[0]] = [];
-        let checkboxes = document.querySelectorAll('input[name="' + classListString[0] + '"');
-        checkboxes.forEach(function (checkbox) {
-            checkBoxBoolDict[classListString[0]].push(checkbox.checked);
+        answerBoolDict[classListString[0]] = [];
+        let answers = document.querySelectorAll('input[name="' + classListString[0] + '"');
+        answers.forEach(function (answer) {
+            answerBoolDict[classListString[0]].push(answer.checked);
         });
     });
-    return checkBoxBoolDict;
+    return answerBoolDict;
 }
 
 /**
- * The function creates a dictionary mapping checkbox classes to their corresponding values for a
+ * The function creates a dictionary mapping answer classes to their corresponding values for a
  * given card element.
  * @param card - The `card` parameter is an HTML element representing a card.
- * @param checkboxClasses - An array of strings representing the classes of checkboxes.
- * @returns a dictionary (checkBoxDict) that contains the checkbox classes as keys and an array of
+ * @param answerClasses - An array of strings representing the classes of answers.
+ * @returns a dictionary (answerDict) that contains the answer classes as keys and an array of
  * boolean values as values.
  */
-function createCardCheckBoxDict(card, checkboxClasses) {
-    let checkBoxDict = {};
+function createAnswerDict(card, answerClasses) {
+    let answerDict = {};
 
-    checkboxClasses.forEach(function (checkboxClass) {
-        let classListString = checkboxClass.split(" ");
+    answerClasses.forEach(function (answerClass) {
+        let classListString = answerClass.split(" ");
         let classValue = card.classList.contains(classListString[1]);
-        if (!(classListString[0] in checkBoxDict)) {
-            checkBoxDict[classListString[0]] = [];
+        if (!(classListString[0] in answerDict)) {
+            answerDict[classListString[0]] = [];
         }
-        checkBoxDict[classListString[0]].push(classValue);
+        answerDict[classListString[0]].push(classValue);
     });
 
-    return checkBoxDict;
+    return answerDict;
 }
 
 /**
@@ -246,11 +241,16 @@ function compareDictsBasedOnFilter(dict1, dict2, filterList, card) {
 }
 
 /**
- * The function checks if all checkboxes are unchecked.
- * @returns a boolean value indicating whether all checkboxes are unchecked.
+ * The function checks if all answers are unchecked.
+ * @returns a boolean value indicating whether all answers are unchecked.
  */
-function checkIfAllCheckboxesAreUnchecked() {
+function checkIfAllAnswersAreUnchecked() {
     let allUnchecked = true;
+    radioButtons.forEach(function (radio) {
+        if (radio.checked) {
+            allUnchecked = false;
+        }
+    });
     checkboxes.forEach(function (checkbox) {
         if (checkbox.checked) {
             allUnchecked = false;
@@ -261,11 +261,11 @@ function checkIfAllCheckboxesAreUnchecked() {
 
 /**
  * The function toggles the "selected" class on a card element if it is not filtered or if all
- * checkboxes are unchecked, and then updates the visibility of step 3 and the selected providers
+ * answers are unchecked, and then updates the visibility of step 3 and the selected providers
  * list.
  */
 function toggleCardSelection() {
-    if (this.classList.contains("filtered") || checkIfAllCheckboxesAreUnchecked()) {
+    if (this.classList.contains("filtered") || checkIfAllAnswersAreUnchecked()) {
         this.classList.toggle("selected");
     }
     checkStep3Visibility();
